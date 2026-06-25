@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management System</title>
+    <link rel="stylesheet" href="{% static 'eventi/stile.css' %}">
+</head>
+<body>
+
+    <div class="navbar">
+        {% if user.is_authenticated %}
+            <div>
+                Ciao, <strong>{{ user.username }}</strong>
+                {% if not user.is_superuser %}
+                    | <a href="{% url 'miei_eventi' %}" style="color: #3498db; margin-left: 10px;">🎟️ I miei Eventi</a>
+                {% endif %}
+            </div>
+            <div>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">❌ Esci</button>
+                </form>
+            </div>
+        {% else %}
+            <div>Benvenuto ospite!</div>
+            <div><a href="{% url 'login' %}">🔑 Accedi</a></div>
+        {% endif %}
+    </div>
+
+    <h1>📅 Event Management System</h1>
+    <p>Benvenuto sul portale di gestione eventi.</p>
+    <hr>
+    
+    <h2>Prossimi Eventi in Programma</h2>
+    
+    {% if eventi %}
+        <div class="eventi-container">
+            {% for evento in eventi %}
+                <div class="event-card">
+                    <h3>{{ evento.titolo }}</h3>
+                    <p>{{ evento.descrizione }}</p>
+                    <p class="meta">📍 <strong>Luogo:</strong> {{ evento.luogo }} | 🗓️ <strong>Data:</strong> {{ evento.data_ora|date:"d M Y - H:i" }}</p>
+                    <p class="meta">👥 <strong>Posti disponibili:</strong> {{ evento.posti_disponibili }} / {{ evento.capienza_massima }}</p>
+                
+                    {% if user.is_authenticated %}
+                        {% if not user.is_superuser %}
+                            <form method="post" action="{% url 'iscriviti_evento' evento.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-iscriviti">🎟️ Iscriviti a questo evento</button>
+                            </form>
+                        {% else %}
+                            <span class="btn-disabilitato">Gli amministratori non possono iscriversi</span>
+                        {% endif %}
+                    {% else %}
+                        <p class="info-avviso"><a href="{% url 'login' %}">Accedi</a> per iscriverti.</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Al momento non ci sono eventi in programma.</p>
+    {% endif %}
+
+</body>
+</html>
