@@ -1,7 +1,7 @@
 body { 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
     margin: 0;
-    padding: 2vw; 
+    padding: 2vw;
     background-color: #f4f7f6; 
     color: #333; 
     box-sizing: border-box;
@@ -21,13 +21,26 @@ h1 {
     justify-content: space-between; 
     align-items: center; 
     gap: 15px;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
 }
 
 .navbar a { 
     color: #2ecc71; 
     text-decoration: none; 
     font-weight: bold; 
+}
+
+.nav-link-miei-eventi {
+    color: #3498db !important;
+    margin-left: 10px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-link-torna {
+    text-decoration: none;
+    font-weight: bold;
+    color: white !important;
 }
 
 .navbar form { 
@@ -45,7 +58,7 @@ h1 {
 
 .eventi-container {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     gap: 20px;
     width: 100%;
 }
@@ -55,8 +68,8 @@ h1 {
     padding: 20px; 
     border-radius: 8px; 
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-    flex: 1; 
-    min-width: 280px; 
+    flex: 1;
+    min-width: 280px;
 }
 
 .meta { 
@@ -76,6 +89,19 @@ h1 {
     font-weight: bold; 
 }
 
+.btn-disiscriviti {
+    background-color: #e74c3c; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-weight: bold;
+    margin-top: 15px;
+}
+
 .btn-disabilitato { 
     background-color: #bdc3c7; 
     color: white; 
@@ -89,9 +115,129 @@ h1 {
     color: #e67e22;
 }
 
+.detail-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.detail-title {
+    color: #2c3e50;
+    font-size: 2em;
+    margin-top: 0;
+}
+
+.detail-description {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 25px;
+}
+
+.event-title-link {
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.event-title-link:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+.form-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.btn-salva {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    font-size: 1.1em;
+}
+
+.btn-salva:hover {
+    background-color: #2980b9;
+}
+
+.btn-modifica {
+    background-color: #f1c40f;
+    color: #2c3e50;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.btn-modifica:hover {
+    background-color: #f39c12;
+}
+
+.organizer-actions {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px dashed #ccc;
+}
+
+.attendees-list {
+    margin-top: 20px;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.attendee-item {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-left: 4px solid #3498db;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.95em;
+}
+
+.no-attendees {
+    color: #7f8c8d;
+    font-style: italic;
+}
+
 @media (min-width: 901px) {
     .eventi-container {
-        flex-direction: row; /* Sopra i 900px gli eventi si affiancano in riga */
-        flex-wrap: wrap;     /* Se sono tanti, vanno a capo ordinatamente */
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 }

@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesso Negato</title>
+    <link rel="stylesheet" href="{% static 'eventi/stile.css' %}">
+</head>
+<body>
+
+    <div class="form-container" style="text-align: center;">
+        <h1 style="color: #e74c3c;">🚫 Accesso Negato</h1>
+        <p>Non hai le autorizzazioni necessarie per modificare o eliminare questo evento.</p>
+        <p>Solo l'organizzatore che ha creato l'evento può apportare modifiche.</p>
+        <hr>
+        <a href="{% url 'home_eventi' %}" class="btn-iscriviti">Torna alla Home</a>
+    </div>
+
+</body>
+</html>

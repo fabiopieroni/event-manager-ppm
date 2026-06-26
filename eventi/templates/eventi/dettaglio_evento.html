@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ evento.titolo }} - Dettaglio</title>
+    <link rel="stylesheet" href="{% static 'eventi/stile.css' %}">
+</head>
+<body>
+
+    <div class="navbar">
+        <div>Dettaglio Evento</div>
+        <div><a href="{% url 'home_eventi' %}" class="nav-link-torna">⬅️ Torna alla Home</a></div>
+    </div>
+
+    <div class="detail-container">
+        <h1 class="detail-title">{{ evento.titolo }}</h1>
+        <hr>
+        
+        <p class="detail-description">{{ evento.descrizione }}</p>
+        
+        <p class="meta">📍 <strong>Luogo dell'evento:</strong> {{ evento.luogo }}</p>
+        <p class="meta">🗓️ <strong>Data e Ora:</strong> {{ evento.data_ora|date:"d M Y - H:i" }}</p>
+        <p class="meta">👥 <strong>Capienza massima:</strong> {{ evento.capienza_massima }} persone</p>
+        <p class="meta">🎟️ <strong>Posti rimasti:</strong> {{ evento.posti_disponibili }}</p>
+
+        {% if user.is_authenticated and evento.organizzatore == user or user.is_superuser %}
+            <div class="organizer-actions">
+                <h3>🛠️ Strumenti Organizzatore</h3>
+                <a href="{% url 'modifica_evento' evento.id %}" class="btn-modifica">✏️ Modifica Evento</a>
+                <a href="{% url 'elimina_evento' evento.id %}" class="btn-disiscriviti">🗑️ Elimina Evento</a>
+
+                <h3 style="margin-top: 25px;">👥 Partecipanti Iscritti</h3>
+                
+                {% if iscritti %}
+                    <ul class="attendees-list">
+                        {% for iscrizione in iscritti %}
+                            <li class="attendee-item">
+                                👤 <strong>{{ iscrizione.utente.username }}</strong> 
+                                <span class="meta">({% if iscrizione.utente.email %}{{ iscrizione.utente.email }}{% else %}Nessuna email{% endif %})</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="no-attendees">Nessun utente si è ancora iscritto a questo evento.</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

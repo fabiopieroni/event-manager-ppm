@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Miei Eventi</title>
+    <link rel="stylesheet" href="{% static 'eventi/stile.css' %}">
+</head>
+<body>
+
+    <div class="navbar">
+        <div>Ciao, <strong>{{ user.username }}</strong></div>
+        <div><a href="{% url 'home_eventi' %}" class="nav-link-torna">⬅️ Torna alla Home</a></div>
+    </div>
+
+    <h1>🎟️ Le tue Prenotazioni</h1>
+    <p>Ecco l'elenco degli eventi a cui ti sei iscritto con successo.</p>
+    <hr>
+
+    {% if iscrizioni %}
+        <div class="eventi-container">
+            {% for iscrizione in iscrizioni %}
+                <div class="event-card">
+                    <h3>{{ iscrizione.evento.titolo }}</h3>
+                    <p>{{ iscrizione.evento.descrizione }}</p>
+                    <p class="meta">📍 <strong>Luogo:</strong> {{ iscrizione.evento.luogo }}</p>
+                    <p class="meta">🗓️ <strong>Data Evento:</strong> {{ iscrizione.evento.data_ora|date:"d M Y - H:i" }}</p>
+                    
+                    <form method="post" action="{% url 'disiscriviti_evento' iscrizione.evento.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-disiscriviti">❌ Cancella Prenotazione</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Non risulti iscritto a nessun evento al momento. <a href="{% url 'home_eventi' %}">Torna al catalogo</a>.</p>
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea Nuovo Evento</title>
+    <link rel="stylesheet" href="{% static 'eventi/stile.css' %}">
+</head>
+<body>
+
+    <div class="navbar">
+        <div>Area Organizzatore</div>
+        <div><a href="{% url 'home_eventi' %}" class="nav-link-torna">⬅️ Torna alla Home</a></div>
+    </div>
+
+    <div class="form-container">
+        <h1 style="color: #2c3e50;">📝 Crea un Nuovo Evento</h1>
+        <p>Compila i campi sottostanti per pubblicare un nuovo evento nel catalogo.</p>
+        <hr>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div style="color: #e74c3c; font-size: 0.9em; margin-top: 5px;">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn-salva">✅ Pubblica Evento</button>
+        </form>
+    </div>
+
+</body>
+</html>

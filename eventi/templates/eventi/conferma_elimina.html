@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conferma Eliminazione</title>
+    <link rel="stylesheet" href="{% static 'eventi/stile.css' %}">
+</head>
+<body>
+
+    <div class="form-container">
+        <h1 style="color: #e74c3c;">⚠️ Conferma Cancellazione</h1>
+        <p>Sei sicuro di voler eliminare definitivamente l'evento <strong>"{{ evento.titolo }}"</strong>?</p>
+        <p>Questa azione cancellerà anche tutte le iscrizioni dei partecipanti e non può essere annullata.</p>
+        <hr>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-disiscriviti" style="width: 100%; margin-bottom: 10px;">🔴 Sì, Elimina Definitivamente</button>
+            <a href="{% url 'dettaglio_evento' evento.id %}" class="btn-iscriviti" style="width: 100%; text-align: center; box-sizing: border-box;">Annulla e Torna Indietro</a>
+        </form>
+    </div>
+
+</body>
+</html>

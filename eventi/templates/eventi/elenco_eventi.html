@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Management System</title>
-    <link rel="stylesheet" href="{% static 'eventi/stile.css' %}">
+    <link class="stile-link" rel="stylesheet" href="{% static 'eventi/stile.css' %}">
 </head>
 <body>
 
@@ -13,8 +13,11 @@
         {% if user.is_authenticated %}
             <div>
                 Ciao, <strong>{{ user.username }}</strong>
-                {% if not user.is_superuser %}
-                    | <a href="{% url 'miei_eventi' %}" style="color: #3498db; margin-left: 10px;">🎟️ I miei Eventi</a>
+                
+                {% if user.is_superuser or user.groups.all.0.name == "Organizer" or user.username == "organizer_demo" %}
+                    | <a href="{% url 'crea_evento' %}" class="nav-link-miei-eventi">➕ Crea Nuovo Evento</a>
+                {% else %}
+                    | <a href="{% url 'miei_eventi' %}" class="nav-link-miei-eventi">🎟️ I miei Eventi</a>
                 {% endif %}
             </div>
             <div>
@@ -39,17 +42,29 @@
         <div class="eventi-container">
             {% for evento in eventi %}
                 <div class="event-card">
-                    <h3>{{ evento.titolo }}</h3>
+                    <h3>
+                        <a href="{% url 'dettaglio_evento' evento.id %}" class="event-title-link">
+                        {{ evento.titolo }}
+                        </a></h3>
                     <p>{{ evento.descrizione }}</p>
                     <p class="meta">📍 <strong>Luogo:</strong> {{ evento.luogo }} | 🗓️ <strong>Data:</strong> {{ evento.data_ora|date:"d M Y - H:i" }}</p>
                     <p class="meta">👥 <strong>Posti disponibili:</strong> {{ evento.posti_disponibili }} / {{ evento.capienza_massima }}</p>
                 
                     {% if user.is_authenticated %}
                         {% if not user.is_superuser %}
-                            <form method="post" action="{% url 'iscriviti_evento' evento.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn-iscriviti">🎟️ Iscriviti a questo evento</button>
-                            </form>
+                            
+                            {% if evento.id in iscrizioni_utente %}
+                                <form method="post" action="{% url 'disiscriviti_evento' evento.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-disiscriviti">❌ Annulla Iscrizione</button>
+                                </form>
+                            {% else %}
+                                <form method="post" action="{% url 'iscriviti_evento' evento.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-iscriviti">🎟️ Iscriviti a questo evento</button>
+                                </form>
+                            {% endif %}
+
                         {% else %}
                             <span class="btn-disabilitato">Gli amministratori non possono iscriversi</span>
                         {% endif %}
