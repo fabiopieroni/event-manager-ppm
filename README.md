@@ -28,4 +28,4 @@ Il file `db.sqlite3` è incluso e pre-popolato con account fittizi e record di t
 * **Attendee (Partecipante):** `attendee_demo` / `attendee12345` , `attendee2_demo` / `attendee12345`
 
 ## Link di Deployment (PythonAnywhere)
-url ancora da caricare.
+(http://fabiopieroni.pythonanywhere.com)
