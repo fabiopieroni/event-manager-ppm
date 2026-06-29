@@ -36,9 +36,18 @@
                 {% if iscritti %}
                     <ul class="attendees-list">
                         {% for iscrizione in iscritti %}
-                            <li class="attendee-item">
-                                👤 <strong>{{ iscrizione.utente.username }}</strong> 
-                                <span class="meta">({% if iscrizione.utente.email %}{{ iscrizione.utente.email }}{% else %}Nessuna email{% endif %})</span>
+                            <li class="attendee-item" style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    👤 <strong>{{ iscrizione.utente.username }}</strong> 
+                                    <span class="meta">({% if iscrizione.utente.email %}{{ iscrizione.utente.email }}{% else %}Nessuna email{% endif %})</span>
+                                </div>
+                                
+                                <form method="post" action="{% url 'rimuovi_iscrizione' iscrizione.id %}" style="margin: 0;">
+                                    {% csrf_token %}
+                                    <button type="submit" style="background-color: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.85em;">
+                                        ❌ Rimuovi
+                                    </button>
+                                </form>
                             </li>
                         {% endfor %}
                     </ul>

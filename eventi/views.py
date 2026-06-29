@@ -84,3 +84,16 @@ def elimina_evento(request, evento_id):
         return redirect('home_eventi')
         
     return render(request, 'eventi/conferma_elimina.html', {'evento': evento})
+
+@login_required
+def rimuovi_iscrizione(request, iscrizione_id):
+    iscrizione = get_object_or_404(Iscrizione, id=iscrizione_id)
+    evento = iscrizione.evento
+    
+    if evento.organizzatore != request.user and not request.user.is_superuser:
+        return render(request, 'eventi/errore_permessi.html', status=403)
+        
+    if request.method == 'POST':
+        iscrizione.delete()
+        
+    return redirect('dettaglio_evento', pk=evento.id)

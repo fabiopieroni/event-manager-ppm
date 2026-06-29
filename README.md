@@ -8,8 +8,8 @@ Applicazione web modulare per la pianificazione e la gestione di eventi, con dis
 
 ## Funzionalità implementate per Ruolo
 * **Anonymous User:** Consultazione dell'elenco degli eventi pubblici.
-* **Attendee (Partecipante):** Registrazione al portale, iscrizione agli eventi e gestione delle proprie prenotazioni.
-* **Organizer (Organizzatore):** Creazione, modifica e cancellazione dei propri eventi; monitoraggio della lista dei partecipanti iscritti.
+* **Attendee (Partecipante):** Autenticazione al portale (tramite account demo forniti), iscrizione agli eventi pubblici e gestione delle proprie prenotazioni con possibilità di disiscrizione..
+* **Organizer (Organizzatore):** Creazione, modifica e cancellazione dei propri eventi(ci si accede cliccando sul "titolo"); monitoraggio della lista dei partecipanti iscritti.
 
 ## Installazione Locale
 1. Clonare la repository: `git clone <url-repository>`
@@ -24,8 +24,8 @@ Il file `db.sqlite3` è incluso e pre-popolato con account fittizi e record di t
 
 ## Account Demo per la Valutazione
 * **Administrator / Superuser:** `admin_demo` / `admin12345`
-* **Organizer (Organizzatore):** `organizer_demo` / `organizer12345`
-* **Attendee (Partecipante):** `attendee_demo` / `attendee12345`
+* **Organizer (Organizzatore):** `organizer_demo` / `organizer12345`, `organizer2_demo` / `organizer12345`
+* **Attendee (Partecipante):** `attendee_demo` / `attendee12345` , `attendee2_demo` / `attendee12345`
 
 ## Link di Deployment (PythonAnywhere)
 url ancora da caricare.
